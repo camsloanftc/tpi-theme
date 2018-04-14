@@ -1,0 +1,589 @@
+// ========== Generic Mixins ========== //
+@mixin bg-img($img){
+	background-image:url('../../images/' + $img);
+}
+
+@mixin bg-cover{
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+@mixin above($width){
+	@media only screen and (min-width: #{$width}px){
+		@content;
+	}
+}
+
+@mixin below($width){
+	@media only screen and (max-width: #{$width - 1}px){
+		@content;
+	}
+}
+
+// ========== RESET CSS ========== //
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+body:not(.mce-content-body){line-height:1}
+ol,ul{list-style:none}
+blockquote,q{quotes:none}
+blockquote::before,blockquote::after,q::before,q::after{content:'';content:none}
+table{border-collapse:collapse;border-spacing:0}
+*{box-sizing:border-box}
+
+
+// ========== HTML / BODY ========== //
+html{width:100%;height:100%}
+body{
+	width:100%;height:100%;overflow-x:hidden;
+}
+
+
+// ===== SVG Icons ===== //
+.svgi{
+	fill: currentColor;
+}
+
+@function encodecolor($string) {
+	@if type-of($string) == 'color' {
+        $hex: str-slice(ie-hex-str($string), 4);
+        $string:unquote("#{$hex}");
+    }
+    $string: '%23' + $string;
+	@return $string;
+}
+
+@function build-icon($icon) {
+  $icon: "%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20' height='20'%3E#{$icon}%3C/svg%3E";
+  @return $icon;
+}
+
+@function icon($icon-name, $color){
+
+	$color: encodecolor($color);
+
+  $icons: (
+    arrow-down: "%3Cpath fill='#{$color}' d='M2.49,4.38A1.5,1.5,0,0,0,.38,6.5l9.56,9.56L19.5,6.5a1.5,1.5,0,0,0-2.12-2.12L9.94,11.83Z'/%3E",
+		quote: "%3Cpath fill='#{$color}' d='M0,18.25V11.39c0-4,.87-7.32,4.9-9A14.9,14.9,0,0,1,8.37,1.5V5.57c-2.2.69-2.79,1.83-2.84,4.07H8.37v8.6Zm11.67,0V11.39c0-4.07.87-7.28,4.9-9A15.11,15.11,0,0,1,20,1.5V5.57c-2.2.69-2.79,1.83-2.84,4.07H20v8.6Z'/%3E",
+    checkmark: "%3Cpolygon fill='#{$color}' points='20 4 7 18 0 9 2.56 6.81 7 11.44 18 2 20 4'/%3E"
+  );
+
+  $icon: build-icon(map-get($icons, $icon-name));
+  @return url('data:image/svg+xml;utf8,#{$icon}');
+}
+
+@mixin svg-icon($icon-name, $color, $size, $format: default){
+	content:'';
+	width:$size;height:$size;
+	background-image: icon($icon-name, $color);
+	background-size:contain;
+
+	@if $format == center{
+		position:absolute;
+		top:50%;left:50%;
+		margin:(-$size/2) 0 0 (-$size/2);
+	}
+}
+
+
+// ========== #TYPOGRAPHY ========== //
+p img{margin:0}
+
+ul,ol{
+	margin:0 0 20px;
+	padding:0 0 0 30px;
+}
+ul > li{list-style-type:disc}
+ol > li{list-style-type:decimal}
+ul > li > ul, ul > li > ol, ol > li > ol, ol > li > ul{margin-bottom:0;padding:5px 0 5px 30px}
+
+@mixin no-list{
+	margin:0;
+	padding:0;
+	li{list-style-type:none}
+}
+
+hr{margin:40px 0;height:1px;line-height:1px;border:0}
+
+i,em{font-style:italic}
+.caps{text-transform:uppercase}
+.no-caps{text-transform:none}
+
+sub, sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+
+
+// Blockquote
+blockquote{
+	position:relative;z-index:2;
+	margin:30px 0;
+
+	background:rgba(0,0,0,.02);
+
+	@include above(1024){padding:35px 30px 35px 120px}
+	@include below(1024){padding:35px 30px;text-align:center}
+
+
+	// Quote icon
+	&::before{
+		@include svg-icon(quote, #ddd, 50px);
+
+
+		@include above(1024){
+			position:absolute;
+			top:50%;left:30px;
+			margin-top:-25px;
+		}
+		@include below(1024){
+			display:block;
+			margin:0 auto 25px;
+		}
+	}
+
+
+	// Paragraph, content
+	&,p{font-size:18px;line-height:1.5;font-weight:300}
+	p{margin-bottom:0}
+
+
+	// Citation
+	.cite,
+	cite{
+		position:relative;
+		display:block;
+		padding-top:20px;
+
+		font-size:15px;line-height:1.4;
+
+		.author{font-size:18px;font-weight:700}
+		.role{font-size:15px;font-weight:300}
+	}
+}
+
+
+// Box Shadows
+@mixin shadow{box-shadow:1px 2px 4px rgba(0,0,0,.08)}
+@mixin shadow-small{box-shadow:1px 2px 2px rgba(0,0,0,.04)}
+@mixin shadow-medium{box-shadow:1px 2px 6px rgba(0,0,0,.1)}
+@mixin shadow-large{box-shadow:2px 4px 10px rgba(0,0,0,.15)}
+
+
+// ===== TRANSITIONS ===== //
+a{transition:.3s ease}
+@mixin transition{transition:.3s ease}
+@mixin no-transition{transition:0s}
+@mixin medium-transition{transition:.6s ease}
+@mixin long-transition{transition:.9s ease}
+
+
+// ========== CORE SEED CLASSES ========== //
+@mixin clear{ &::after{content:'';display:table;clear:both} }
+%clear{@include clear;}
+
+.relative{position:relative}
+.display-none{display:none}
+.no-margin{margin:0}
+.no-padding{padding:0}
+.text-left{text-align:left}
+.text-center{text-align:center}
+.text-right{text-align:right}
+
+.iframe{
+	border:0;
+	display:block;
+	width:100%;max-width:100%;
+	margin:0;
+}
+
+// ACF Maps
+.acf-map{
+	width:100%;
+	min-height:100px;
+
+	img{max-width:inherit !important}
+}
+
+
+// ========== CORE WORDPRESS CLASSES ========== //
+
+// Image alignment
+.alignnone{margin:0 0 30px 0}
+p + .alignnone{margin-top:20px}
+.alignright{float:right;margin:20px 0 30px 30px}
+.alignleft{float:left;margin:20px 30px 30px 0}
+.aligncenter{display:block;margin:20px auto 30px}
+	@include below(1200){
+		.col .alignleft,
+		.col .alignright{max-width:60%}
+	}
+	@include below(768){
+		.col .alignleft,
+		.col .alignright{max-width:100%;float:none;display:block;margin:10px auto 20px auto}
+	}
+
+
+// Galleries & Captions
+img.border,
+.wp-caption{
+	max-width:96%;
+	padding:7px;
+
+	background:$white;
+	box-shadow:1px 2px 8px rgba(0,0,0,.08);
+}
+
+.wp-caption{
+	max-width:100%;
+
+	img{
+		margin:0;padding:0;
+		width:auto;max-width:100%;height:auto;
+		border:0 none;
+	}
+}
+
+img.shadow{box-shadow:1px 2px 8px rgba(0,0,0,.08)}
+
+.gallery .wp-caption-text,
+.wp-caption p.wp-caption-text{
+	margin:0;padding:10px 6px 8px 6px;
+
+	font-size:14px;line-height:1.55;font-weight:300;text-align:center;
+}
+
+.mejs-container{margin:0 0 20px 0}
+
+.gallery{
+	float:left;width:100%;margin-bottom:40px;text-align:center;
+
+	img{border:7px solid $white !important; @include shadow;}
+
+	.gallery-item{
+		float:left;width:20%;padding:10px;
+
+		@include below(1200){width:33%}
+		@include below(768){width:50%}
+		@include below(480){width:100%}
+	}
+}
+
+
+// Fix for WordPress YouTube iframe embeds
+iframe{max-width:100%}
+
+
+// ========== #TABLES ========== //
+// see styles.scss
+
+
+
+// ========== #ACCORDIONS & TABS ========== //
+.accordion-tab-heading{
+	font-size:18px;line-height:1;font-weight:700;color:#333;
+}
+
+$tabs-border: rgba(0,0,0,.06);
+$accordions-border: $tabs-border;
+
+
+// ========== #TABS ========== //
+.ui-tabs{@include clear;padding:20px 0 30px}
+.ui-tabs-nav{
+	overflow:hidden;
+	position:relative;z-index:2;
+	float:left;width:100%;
+	margin:0 0 -1px 0;padding:0;
+
+	// White text
+	.white-text &{margin:0}
+
+	li{
+		cursor:pointer;list-style-type:none;
+		float:left;
+		margin:0 4px 0 0;
+
+		border:1px solid $tabs-border;
+		border-bottom:0;
+		box-shadow:1px 2px 6px rgba(0,0,0,.05);
+
+		a{
+			transition-property:background, color, border, box-shadow;
+			outline:none;
+			float:left;
+			padding:18px 15px;
+
+			background:#fafafa;
+			box-shadow:inset 0 -10px 10px -10px rgba(0,0,0,.08);
+
+			@extend .accordion-tab-heading;
+			color:#aaa;
+		}
+
+		&:hover,
+		&.ui-state-active{box-shadow:1px 2px 6px rgba(0,0,0,.1)}
+
+		&.ui-state-active a,
+		&:hover a{
+			background:$white;
+			box-shadow:inset 0 0 10px -10px rgba(0,0,0,0);
+
+			color:#333;
+			text-decoration:none;
+		}
+
+		// White text
+		.white-text &{
+			border:0;
+
+			a{
+				background:rgba(20,20,20,.6);
+				color:rgba(255,255,255,.8);
+			}
+
+			&.ui-state-active a,
+			&:hover a{
+				background:rgba(20,20,20,.8);
+				color:rgba(255,255,255,1);
+			}
+		}
+
+		@include below(768){
+			a{
+				padding:14px 15px;
+				font-size:15px;
+			}
+		}
+		@include below(480){
+			width:100%;
+			margin-right:0;
+
+			&:hover,
+			&.ui-state-active{box-shadow:none}
+
+			a{
+				width:100%;
+				box-shadow:none;
+			}
+		}
+	}
+}
+.ui-tabs-panel{
+	position:relative;z-index:1;
+	float:left;width:100%;
+	margin:0;
+	padding:20px 20px 10px;
+
+	border:1px solid $tabs-border;
+	background:$white;
+	box-shadow:1px 2px 5px rgba(0,0,0,.05);
+
+
+	// White text
+	.white-text &{
+		border:0;
+		background:rgba(20,20,20,.8);
+	}
+
+	@include below(768){
+		padding-left:15px;
+		padding-right:15px;
+	}
+}
+
+
+// ========== #ACCORDIONS ========== //
+.ui-accordion{@include clear;padding:10px 0 30px}
+	.ui-accordion-header{
+		@include transition;
+		transition-property:background, color, border, box-shadow;
+		cursor:pointer;
+		position:relative;
+		float:left;width:100%;
+		margin:0;
+		padding:15px 38px 15px 20px;
+
+		border:1px solid $accordions-border;
+		border-top:0;
+		background:#fafafa;
+		box-shadow:1px 2px 5px rgba(0,0,0,.05);
+
+		@extend .accordion-tab-heading;
+
+		&:first-child{border-top:1px solid $accordions-border}
+
+		&:focus{outline:none}
+		&:hover{background-color:$white}
+
+
+		// Up/Down Arrows
+		&::before{
+			@include svg-icon(arrow-down, $link-color, 12px);
+			position:absolute;
+			top:50%;right:15px;
+			margin-top:-6px;
+		}
+		&::after{
+			display:none;
+			@include svg-icon(arrow-down, $link-color-hover, 12px);
+			transform:rotate(180deg);
+			position:absolute;
+			top:50%;right:15px;
+			margin-top:-6px;
+		}
+
+		// White text
+		.white-text &{
+			border:0;
+			background:rgba(20,20,20,.8);
+			color:rgba(255,255,255,.8);
+
+			&:hover{
+				background:rgba(20,20,20,1);
+				color:rgba(255,255,255,1);
+			}
+		}
+
+		@include below(768){
+			padding-left:15px;
+			font-size:16px;line-height:1.2;
+		}
+	}
+
+	// Active Header
+	.ui-accordion-header-active{
+		background:$white;
+		&::before{display:none}
+		&::after{display:block}
+	}
+
+	// Accordion Content
+	.ui-accordion-content{
+		float:left;width:100%;
+		padding:20px 20px 10px;
+
+		border:1px solid $accordions-border;
+		border-top:0;
+		background:$white;
+		box-shadow:1px 2px 5px rgba(0,0,0,.05);
+
+
+		// White text
+		.white-text &{
+			border:0;
+			background:rgba(20,20,20,.8);
+		}
+
+		@include below(768){
+			padding-left:15px;
+			padding-right:15px;
+		}
+	}
+
+
+// Loading Circle
+@keyframes spin {100%{transform:rotate(360deg)}}
+
+.loading-circle-medium{
+    &::after{
+        content:'';
+        position:absolute;
+        display:block;
+        top:50%;left:50%;
+        margin:-20px 0 0 -20px;
+        width:40px;height:40px;
+
+        border: 3px solid rgba(0,0,0,.1);
+        border-left-color: #aaa;
+        border-radius: 50%;
+
+        animation:spin 1s linear infinite;
+     }
+}
+
+
+
+// ============================================ //
+// ============== #RESPONSIVE GRID ============ //
+// ============================================ //
+
+.row{
+	position:relative;
+	@include clear;
+	margin:0 auto;
+	width:100%;max-width:1200px;
+}
+.col{
+	float:left;display:block;
+	padding:0 20px;
+
+	img{max-width:100%;height:auto}
+}
+
+.span-1{width:8.3333%}
+.span-2{width:16.6667%}
+.span-3{width:25%}
+.span-4{width:33.3333%}
+.span-5{width:41.6667%}
+.span-6{width:50%}
+.span-7{width:58.3333%}
+.span-8{width:66.6667%}
+.span-9{width:75%}
+.span-10{width:83.3333%}
+.span-11{width:91.6667%}
+.span-12{width:100%}
+
+	@include below(1200){
+		.row{max-width:1024px}
+	}
+
+	@include below(1024){
+		.col{
+			width:100%;
+			&.col-margin{margin-bottom:40px}
+		}
+		.row{max-width:768px}
+	}
+
+
+// ===== WP Admin Bar Fixes ===== //
+body.admin-bar{
+
+	@media only screen and (min-width: 1024px){
+		#nav{top:32px}
+
+		#sticky-top.sticky-show{top:32px}
+		#sticky-slideout{top:96px}
+	}
+
+	@media only screen and (max-width: 1023px){
+		#wpadminbar{display:none}
+		&:not(.mce-content-body){margin-top:-46px}
+	}
+
+	// Remove extra items from WP Admin Bar
+	#wp-admin-bar-customize,
+	#wp-admin-bar-updates,
+	#wp-admin-bar-comments,
+	#wp-admin-bar-wpseo-menu{display:none}
+
+}
+
+.lg-on #wpadminbar{display:none}
+
+
+// ========== Print CSS ========== //
+@media print{
+	#sticky,
+	#nav,
+	#nav-spacer,
+	#footer{display:none}
+
+	*{background:none;color:#000}
+
+	.col{
+		width:100%;
+		&.col-margin{margin-bottom:40px}
+	}
+	.row{max-width:768px}
+}

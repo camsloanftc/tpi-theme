@@ -1,0 +1,94 @@
+// Branding Colors
+$black: #27251F;
+$gold: #AC8A0B;
+$blue: #00A9CE;
+$green: #78BE20;
+$orange: #FF8200;
+$red: #BA0C2F;
+$blue-accent: #007FA3;
+$green-accent: #4A7729;
+$orange-accent: #BE6A14;
+
+
+$grey: #777;
+$palegrey: #999;
+$grey-panel: #E6E6E6;
+$grey-panel2: #F1F1F1;
+
+// Misc
+$link-color:        $palegrey;
+$link-color-hover:  $grey;
+$placeholder-color: #aaa;
+
+$line-color: rgba(0,0,0,.08);
+
+// Default Colors
+$white:         #fff;
+$offwhite:      #fafafa;
+$offblack:      #333;
+$required-red:  #EB0F0F;
+$success-green: #5CB660;
+
+// Social Colors
+$twitter:       #2AA9E0;
+$facebook:      #3C5A98;
+$youtube:       #E63A41;
+$googleplus:    #C23323;
+$pinterest:     #CC2127;
+$linkedin:      #0074B1;
+$instagram:     #C536A3;
+$houzz:         #7AC143;
+
+
+// Product Category Colours
+
+// Poly Products
+.cat-col-4{
+  &.cc-bg{background-color:$blue}
+  &.cc-color-hover:hover{color:$blue !important}
+  &.cc-border{border-color:$blue}
+  &.cc-links a{color:$blue; &:hover{color:$grey} }
+  &.cc-buttons{
+    a.button,
+    .toggle-button{background:$blue;color:$white; &:hover{background:$grey} }
+  }
+  &.cc-headings{
+    h1,h2,h3,h4,h5,h6{
+      &:not(.no-auto-color){color:$blue}
+    }
+  }
+}
+
+// Lumber Wrap
+.cat-col-3{
+  &.cc-bg{background-color:$green}
+  &.cc-color-hover:hover{color:$green !important}
+  &.cc-border{border-color:$green}
+  &.cc-links a{color:$green; &:hover{color:$grey} }
+  &.cc-buttons{
+    a.button,
+    .toggle-button{background:$green;color:$white; &:hover{background:$grey} }
+  }
+  &.cc-headings{
+    h1,h2,h3,h4,h5,h6{
+      &:not(.no-auto-color){color:$green}
+    }
+  }
+}
+
+// Heavy Duty Products
+.cat-col-5{
+  &.cc-bg{background-color:$orange}
+  &.cc-color-hover:hover{color:$orange !important}
+  &.cc-border{border-color:$orange}
+  &.cc-links a{color:$orange; &:hover{color:$grey} }
+  &.cc-buttons{
+    a.button,
+    .toggle-button{background:$orange;color:$white; &:hover{background:$grey} }
+  }
+  &.cc-headings{
+    h1,h2,h3,h4,h5,h6{
+      &:not(.no-auto-color){color:$orange}
+    }
+  }
+}
