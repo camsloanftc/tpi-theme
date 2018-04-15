@@ -4,6 +4,9 @@
   "description": "WordPress theme with gulp setup",
   "main": "index.php",
   "author": "James Carmichael",
+  "scripts": {
+    "gulp-run": "gulp"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
