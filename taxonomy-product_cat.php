@@ -59,72 +59,6 @@ $term_name = $queried_object->name;
   </div>
 </section>
 
-<section id="section-p-cat-content">
-  <div class="row">
-    <div class="col span-12">
-
-      <?php
-      // Query Products in Category
-      $carousel = '';
-      $products = '';
-
-      if( $wp_query->have_posts() ):
-
-        while( $wp_query->have_posts() ): $wp_query->the_post();
-
-
-          // ===== Append to carousel ===== //
-          $thumb = get_field('thumb');
-
-          // open li, link
-          $carousel .= '<li class="p-cat-tab"><a href="javascript:void(0);" class="p-cat-tab-link inactive cat-col-' . $term_id . ' cc-border cc-color-hover" data-pid="' . get_the_ID() . '">';
-
-            // image and title
-            $carousel .= '<img src="' . $thumb['sizes']['thumbnail'] . '" alt="' . get_the_title() . '" /><span class="title">' . get_the_title() . '</span>';
-
-          // close li, link
-          $carousel .= '</a></li>';
-
-
-
-          // ===== Append to product ===== //
-          $products .= '<div class="p-cat-product inactive" data-pid="' . get_the_ID() . '">';
-
-            // Flexible Product Panels
-            global $page_layout;
-            $page_layout = 'tabs';
-            ob_start();
-            include(locate_template('flexible/flexible-products.php'));
-            $products .= ob_get_clean();
-
-          $products .= '</div>';
-
-
-        endwhile;
-
-      endif;
-
-      wp_reset_query();
-
-
-      // Product Tabs
-      echo '<div id="p-cat-tabs">';
-
-        // Carousel
-        echo '<div id="p-cat-carousel-wrap"><a class="tab-arrow active arrow-prev cat-col-' . $term_id . ' cc-bg" href="javascript:void(0);">' . svgi('arrow-down') . '</a><a class="tab-arrow active arrow-next cat-col-' . $term_id . ' cc-bg" href="javascript:void(0);">' . svgi('arrow-down') . '</a><ul id="p-cat-carousel">' . $carousel . '</ul></div>';
-
-
-        // Tab Contents
-        echo '<div id="p-cat-products" class="cat-col-' . $term_id . ' cc-headings cc-buttons">' . $products . '</div>';
-
-      echo '</div>';
-      ?>
-
-    </div>
-  </div>
-</section>
-
-
 <?php
 // Flexible Content
 global $flexible_rows;
@@ -132,6 +66,49 @@ $flexible_rows = 'product_cat_' . $term_id;
 flexibleContent();
 ?>
 
+<section id="section-p-cat-content">
+  <div class="row">
+    <div class="col span-12">
+
+      <?php
+      // Query Products in Category
+      $html_out = '';
+
+      if( $wp_query->have_posts() ):
+
+        $html_out .= '<div id="p-cat-grid">';
+
+        while( $wp_query->have_posts() ): $wp_query->the_post();
+          $product_thumb = get_field('thumb');
+          $product_thumb_src = $product_thumb['sizes']['thumbnail'];
+          $product_title = get_the_title();
+          $product_link = get_the_permalink();
+
+          $product_html = <<<HTML
+          <div class="p-cat-grid__item">
+            <div class="p-cat-card">
+              <a class="p-cat-card__image-link" title="{$product_title}" href="{$product_link}"><img class="p-cat-card__image" src="{$product_thumb_src}" alt="{$product_title}" /></a>
+              <h5 class="p-cat-card__title"><a href="{$product_link}">{$product_title}</a></h5>
+              <a class="button p-cat-card__button" href="{$product_link}">View Product</a>
+            </div>
+          </div>    
+HTML;
+          $html_out .= $product_html;
+
+        endwhile;
+
+        $html_out .= '</div>';
+        echo $html_out;
+
+      endif;
+
+      wp_reset_query();
+
+      ?>
+
+    </div>
+  </div>
+</section>
 
 </main>
 
