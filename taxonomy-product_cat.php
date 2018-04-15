@@ -79,8 +79,6 @@ flexibleContent();
         $html_out .= '<div id="p-cat-grid">';
 
         while( $wp_query->have_posts() ): $wp_query->the_post();
-
-          d($post);
           $product_thumb = get_field('thumb');
           $product_thumb_src = $product_thumb['sizes']['thumbnail'];
           $product_title = get_the_title();
@@ -89,9 +87,9 @@ flexibleContent();
           $product_html = <<<HTML
           <div class="p-cat-grid__item">
             <div class="p-cat-card">
-              <img class="p-cat-card__image" src="{$product_thumb_src}" alt="{$product_title}" />
-              <h5 class="p-cat-card__title"><a href="$product_link">{$product_title}</a></h5>
-              <a class="button p-cat-card__button" href="#">View Product</a>
+              <a class="p-cat-card__image-link" title="{$product_title}" href="{$product_link}"><img class="p-cat-card__image" src="{$product_thumb_src}" alt="{$product_title}" /></a>
+              <h5 class="p-cat-card__title"><a href="{$product_link}">{$product_title}</a></h5>
+              <a class="button p-cat-card__button" href="{$product_link}">View Product</a>
             </div>
           </div>    
 HTML;

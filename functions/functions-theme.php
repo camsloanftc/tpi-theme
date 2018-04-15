@@ -197,12 +197,7 @@ function products_mega_menu(){
 
             while( $wp_query->have_posts() ): $wp_query->the_post();
 
-              // Link depends on tab vs. page
-              if( $cat_layout == 'tabs' ){
-                $link = esc_url( get_term_link( $term ) ) . '?pid=' . get_the_ID();
-              } else {
-                $link = get_permalink();
-              }
+              $link = get_permalink();
 
               $boxes .= '<li><a href="' . $link . '" class="cat-col-' . $term->term_id . ' cc-border-hover-before cc-color-hover">' . get_the_title() . svgi('triangle-right') . '</a></li>';
 
@@ -294,13 +289,7 @@ function products_mega_menu_mobile(){
               echo '<ul class="sub-menu">';
 
                 while( $wp_query->have_posts() ): $wp_query->the_post();
-
-                  // Link depends on tab vs. page
-                  if( $cat_layout == 'tabs' ){
-                    $link = esc_url( get_term_link( $term ) ) . '?pid=' . get_the_ID();
-                  } else {
-                    $link = get_permalink();
-                  }
+                  $link = get_permalink();
 
                   echo '<li><a href="' . $link . '">' . get_the_title() . '</a></li>';
 

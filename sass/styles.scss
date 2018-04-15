@@ -742,14 +742,22 @@ section{
 	align-items: center;
 	justify-content: center;
 	padding: 20px;
+	height: 100%;
 	.p-cat-card__image {
+		flex: 1;
 		width: 100%;
 		margin-bottom: $margin-bottom;
 	}
+	.p-cat-card__image-link {
+		flex: 1;
+		width: 100%;
+	}
 	.p-cat-card__title {
 		text-align: center;
+		flex-grow: 1;
 	}
 	.p-cat-card__button {
+		flex: 1;
 		width: 100%;
 		text-align: center;
 	}

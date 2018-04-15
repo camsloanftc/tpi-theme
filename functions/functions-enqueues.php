@@ -48,9 +48,11 @@ function my_scripts_enqueue(){
 	// Product Cat Taxonomy
 	wp_register_script('product-tabs', get_template_directory_uri() . '/build/js/product-tabs.min.js', array('jquery'), '1.0', true);
 
-	if( is_tax('product_cat') ){
-		wp_enqueue_script('product-tabs');
-	}
+	// Currently, we are no longer using the product-tabs carousel, but a grid system instead.
+	// I have left the old taxonomy-product_cat php code in a file called "taxonomy-product_cat-old.php" - Cam Sloan, Apr 15, 2018
+	// if( is_tax('product_cat') ){
+	// 	wp_enqueue_script('product-tabs');
+	// }
 
 	// SVG support for IE
 	wp_register_script('svgxuse', get_template_directory_uri() . '/js/libs/svgxuse.min.js', null, '1.2.4', true);
