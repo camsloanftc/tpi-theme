@@ -12,8 +12,6 @@ $term_name = $queried_object->name;
 
 
 $button_color = "";
-d( $queried_object );
-d( $term_id );
 if ( $term_id === 4 ) {
   $button_color = 'blue-button';
 } else if ( $term_id === 3 ) {
