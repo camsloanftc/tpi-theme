@@ -9,6 +9,19 @@ $queried_object = get_queried_object();
 global $term_id;
 $term_id = $queried_object->term_id;
 $term_name = $queried_object->name;
+
+
+$button_color = "";
+d( $queried_object );
+d( $term_id );
+if ( $term_id === 4 ) {
+  $button_color = 'blue-button';
+} else if ( $term_id === 3 ) {
+  $button_color = 'green-button';
+} else if ( $term_id === 5 ) {
+  $button_color = 'orange-button';
+}
+
 ?>
 
 <section id="section-p-cat-banner">
@@ -66,6 +79,7 @@ $flexible_rows = 'product_cat_' . $term_id;
 flexibleContent();
 ?>
 
+
 <section id="section-p-cat-content">
   <div class="row">
     <div class="col span-12">
@@ -89,7 +103,7 @@ flexibleContent();
             <div class="p-cat-card">
               <a class="p-cat-card__image-link" title="{$product_title}" href="{$product_link}"><img class="p-cat-card__image" src="{$product_thumb_src}" alt="{$product_title}" /></a>
               <h5 class="p-cat-card__title"><a href="{$product_link}">{$product_title}</a></h5>
-              <a class="button p-cat-card__button" href="{$product_link}">View Product</a>
+              <a class="button p-cat-card__button {$button_color}" href="{$product_link}">View Product</a>
             </div>
           </div>    
 HTML;
