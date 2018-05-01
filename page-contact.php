@@ -50,7 +50,7 @@ flexibleContent();
       <div class="contact-form-wrap">
         <?php
         // Contact Form
-        echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true"]');
+        echo do_shortcode('[gravityform id="1" title="false" description="false"]');
         ?>
       </div>
 
