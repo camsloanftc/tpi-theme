@@ -20,12 +20,10 @@
 
 			<ul class="footer-address">
 				<li><a href="<?php bloginfo('url'); ?>/contact/"><?php the_field('footer_address', 102); ?></a></li>
-				<li><a href="<?php bloginfo('url'); ?>/contact/">Get Directions</a></li>
 			</ul>
 
 			<ul class="footer-copy">
 				<li>&copy;<?php echo date('Y'); ?> Tri Pac Inc.</li>
-				<?php if( is_front_page() ) echo '<li><a href="http://www.echosims.com" target="_blank">Website crafted by echosims</a></li>'; ?>
 			</ul>
 
 		</div>
