@@ -16,18 +16,19 @@
 			</ul>
 
 		</div>
-		<div class="col span-12">
+		<div class="col span-12 footer__bottom-container">
+			<div class="footer__bottom-left">
+				<ul class="footer-address">
+					<li><a href="<?php bloginfo('url'); ?>/contact/"><?php the_field('footer_address', 102); ?></a></li>
+				</ul>
 
-			<ul class="footer-address">
-				<li><a href="<?php bloginfo('url'); ?>/contact/"><?php the_field('footer_address', 102); ?></a></li>
-				<li><a href="<?php bloginfo('url'); ?>/contact/">Get Directions</a></li>
-			</ul>
-
-			<ul class="footer-copy">
-				<li>&copy;<?php echo date('Y'); ?> Tri Pac Inc.</li>
-				<?php if( is_front_page() ) echo '<li><a href="http://www.echosims.com" target="_blank">Website crafted by echosims</a></li>'; ?>
-			</ul>
-
+				<ul class="footer-copy">
+					<li>&copy;<?php echo date('Y'); ?> Tri Pac Inc.</li>
+				</ul>
+			</div>
+			<div class="footer__bottom-right">
+				<img class="footer__mlb-logo" src="<?php echo get_bloginfo( 'template_directory' ) . '/images/MLB-tripac-logo.jpg'; ?>"/>
+			</div>
 		</div>
 	</div>
 </footer>
