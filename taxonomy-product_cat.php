@@ -92,7 +92,7 @@ flexibleContent();
 
         while( $wp_query->have_posts() ): $wp_query->the_post();
           $product_thumb = get_field('thumb');
-          $product_thumb_src = $product_thumb['sizes']['thumbnail'];
+          $product_thumb_src = $product_thumb['sizes']['medium'];
           $product_title = get_the_title();
           $product_link = get_the_permalink();
 
