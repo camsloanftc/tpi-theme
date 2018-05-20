@@ -52,8 +52,10 @@ if ( $term_id === 4 ) {
 
         // Blurb Box
         $cat_blurb = get_field('blurb', 'product_cat_' . $term_id);
+        $show_blurb = get_field('show_blurb_on_landing_page', 'product_cat_' . $term_id);
 
-        echo '<div class="blurb-box">';
+        if ($show_blurb) {
+          echo '<div class="blurb-box">';
 
           // Overlay
           echo '<div class="overlay cat-col-' . $term_id . ' cc-bg"></div>';
@@ -61,7 +63,9 @@ if ( $term_id === 4 ) {
           // Blurb
           echo '<p class="blurb">' . $cat_blurb . '</p>';
 
-        echo '</div>';
+          echo '</div>';
+        }
+        
         ?>
 
       </div>
