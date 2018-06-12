@@ -3,7 +3,6 @@ var gulp          = require('gulp'),
     autoprefixer  = require('gulp-autoprefixer'),
     concat        = require('gulp-concat'),
     csso          = require('gulp-csso'),
-    jshint        = require('gulp-jshint'),
     livereload    = require('gulp-livereload'),
     rename        = require('gulp-rename'),
     sass          = require('gulp-sass'),
@@ -14,7 +13,7 @@ var gulp          = require('gulp'),
     uglify        = require('gulp-uglify'),
     watch         = require('gulp-watch'),
     path          = require('path'),
-    stylish       = require('jshint-stylish');
+    babel = require('gulp-babel');
 
 
 // Sass - lint
@@ -87,23 +86,24 @@ gulp.task('sass-uglify', function(){
 gulp.task('js-global', function() {
   return gulp.src([
       'js/nav.js',
-      'js/global.js'
+      'js/global.js',
+      'js/gtmAttributes.js'
     ])
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
     .pipe(concat('global.js'))
+    .pipe(babel({
+        presets: ['env']
+    }))
     .pipe(rename('global.min.js'))
-    .pipe(uglify())
     .pipe(gulp.dest('build/js'));
 });
 
 
 // JS - Other
 gulp.task('js-other', function() {
-  return gulp.src(['js/*.js', '!js/nav.js', '!js/global.js'])
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(uglify())
+  return gulp.src(['js/*.js', '!js/nav.js', '!js/global.js', '!js/gtmAttribute.js'])
+    .pipe(babel({
+        presets: ['env']
+    }))
     .pipe(rename({
       suffix: '.min'
     }))
