@@ -171,7 +171,7 @@ const addTags = () => {
 		// Lumber Wrap Explore CTA
 		const homeLumberExplore = arrayTextFinder(
 			homeIntro.querySelectorAll('.product-cats li a'),
-			'Lumber Wrap'.toUpperCase()
+			'Woven Wraps & Bags'.toUpperCase()
 		)
 		safeSetAttribute('homeLumberExplore', homeLumberExplore, dataAnalytics, 'homepage')
 		safeSetAttribute('homeLumberExplore', homeLumberExplore, dataLabel, 'Explore-Lumber-Wrap-Products')
