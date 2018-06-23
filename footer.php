@@ -24,6 +24,7 @@
 
 				<ul class="footer-copy">
 					<li>&copy;<?php echo date('Y'); ?> Tri Pac Inc.</li>
+					<li><a href="/privacy-policy/">Privacy Policy</a></li>
 				</ul>
 			</div>
 			<div class="footer__bottom-right">
