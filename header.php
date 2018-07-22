@@ -43,8 +43,6 @@
 			echo '<!-- noindex, nofollow added on thank you pages. -->';
 			echo '<meta name="robots" content="noindex, nofollow" />';
 		}
-
-		d($post_title, $is_thank_you_page);
 	?>
 
 	<?php wp_head(); ?>
