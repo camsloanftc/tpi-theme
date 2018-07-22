@@ -32,6 +32,21 @@
 	}
 	?>
 
+	<?php
+		// Add "noindex, nofollow" for thank you pages.
+		global $post;
+
+		$post_title = strtolower($post->post_title);
+		$is_thank_you_page = strpos($post_title, 'thank you') !== false;
+
+		if($post->post_type == 'page' && $is_thank_you_page){
+			echo '<!-- noindex, nofollow added on thank you pages. -->';
+			echo '<meta name="robots" content="noindex, nofollow" />';
+		}
+
+		d($post_title, $is_thank_you_page);
+	?>
+
 	<?php wp_head(); ?>
 
 </head>

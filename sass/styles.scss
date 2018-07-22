@@ -191,6 +191,8 @@ a.button, button, input[type='submit'], input[type='reset'], input[type='button'
 	&.blue-button{background:$blue; &:hover{background:$black} }
 	&.green-button{background:$green; &:hover{background:$black} }
 	&.orange-button{background:$orange; &:hover{background:$black} }
+	&.ghost{background: initial; border:1px solid $white; &:hover{background:rgba(0,0,0,.2)} }
+
 }
 
 
@@ -748,6 +750,16 @@ section{
 
 	.p-cat-grid__item {
 		grid-area: "item";
+	}
+}
+
+.p-cat-cta {
+	padding-top: 70px;
+	padding-bottom: 50px;
+	clear: both;
+
+	h1,h2,h3,h4,h5,h6,p,span {
+		color: #ffffff;
 	}
 }
 

@@ -81,6 +81,25 @@ $flexible_rows = 'product_cat_' . $term_id;
 flexibleContent();
 ?>
 
+<?php
+// Call to action
+$cta = get_field('call_to_action', $queried_object);
+
+$cta_section = <<<HTML
+        <div class="p-cat-cta cat-col-{$term_id} cc-bg">
+          <div class="row">
+            <div class="col span-12">
+              {$cta}
+            </div>
+          </div>
+        </div>
+HTML;
+
+if ($cta) {
+  echo $cta_section;
+}
+?>
+
 
 <section id="section-p-cat-content">
   <div class="row">

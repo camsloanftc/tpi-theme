@@ -149,6 +149,28 @@ endif;
 	</div>
 </section>
 
+<?php
+
+
+// Call to action
+$cta = get_field('call_to_action', $term->taxonomy . '_' . $term->term_id);
+$show_cta_on_product_page = get_field('show_cta_on_product_pages', $term->taxonomy . '_' . $term->term_id);
+
+$cta_section = <<<HTML
+        <div class="p-cat-cta cat-col-{$term_id} cc-bg">
+          <div class="row">
+            <div class="col span-12">
+              {$cta}
+            </div>
+          </div>
+        </div>
+HTML;
+
+if ($cta && $show_cta_on_product_page) {
+  echo $cta_section;
+}
+?>
+
 </main>
 
 <?php get_footer(); ?>
