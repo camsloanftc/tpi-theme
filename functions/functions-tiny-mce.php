@@ -247,6 +247,11 @@ function custom_tinymce_settings($settings){
 					'selector'	=> 'a',
 					'classes'	=> 'button orange-button',
 				),
+				array(
+					'title'		=> 'Ghost Button',
+					'selector'	=> 'a',
+					'classes'	=> 'button ghost',
+				),
 			),
 		),
 	);
