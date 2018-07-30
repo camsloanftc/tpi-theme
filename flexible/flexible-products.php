@@ -39,19 +39,6 @@ if( have_rows('p_panels') ) :
 				break;
 
 
-
-			// Call to Action
-			case 'cta':
-
-				$cta = get_field('cta_content', 'options');
-				echo '<div class="p-panel pp-cta">';
-					echo $cta;
-				echo '</div>';
-
-				break;
-
-
-
 			// Specs Table
 			case 'specs_table':
 
